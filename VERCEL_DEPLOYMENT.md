@@ -127,6 +127,24 @@ After deployment:
 - Redeploy after adding new environment variables
 - Check variable names match exactly (case-sensitive)
 
+### Build Fails with "Missing credentials" or "OPENAI_API_KEY environment variable"
+
+**Error**: `Failed to analyze adScenes.js: Uncaught Error: Missing credentials. Please pass an \`apiKey\`, or set the \`OPENAI_API_KEY\` environment variable.`
+
+**Solution**:
+1. Go to [Convex Dashboard](https://dashboard.convex.dev)
+2. Select your **Production** deployment (e.g., `laudable-eagle-651`)
+3. Navigate to **Settings** → **Environment Variables**
+4. Add the following environment variables:
+   - **Name**: `CONVEX_OPENAI_API_KEY`
+   - **Value**: Your OpenAI API key
+   - **Name**: `CONVEX_OPENAI_BASE_URL` (optional, only if using custom endpoint)
+   - **Value**: Your OpenAI base URL (or leave empty for default)
+5. Click **Save**
+6. **Important**: Redeploy in Vercel after adding these variables
+
+**Note**: The OpenAI client is initialized at module load time, so these variables MUST be set in the Convex production deployment before the build can succeed.
+
 ## Additional Notes
 
 - The `vercel.json` file is already configured for SPA routing
